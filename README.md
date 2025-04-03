@@ -86,7 +86,6 @@ python manage.py migrate
 
 9. **Create a admin user.
 python manage.py create_default_users
-# Follow the prompts to set up the admin user
 
 10. **Run the development server**
 python manage.py runserver
