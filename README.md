@@ -103,4 +103,3 @@ sudo apt install -y docker-compose``
 i have included to my own .env file (even tho it is bad practice) but since it doesnt contain sensitive information , it should also make your testing experience better.
 make sure to check it and uncomment the variables for docker and comment the localhost variables,
 or vice versa.
-```
