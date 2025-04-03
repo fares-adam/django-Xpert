@@ -93,10 +93,10 @@ python manage.py runserver
 # OR
 ### you can use the docker container
 
-1. install docker and docker composeand make usre they are enabled and started
+1. **install docker and docker composeand make usre they are enabled and started**
 ``sudo apt install -y docker.io``
 ``sudo apt install -y docker-compose``
-2 .Build and Run the Docker Containers
+2 .**Build and Run the Docker Containers**
 ``docker-compose up --build -d``
 
 ## P.S
