@@ -93,13 +93,22 @@ python manage.py runserver
 # OR
 ### you can use the docker container
 
-1. **install docker and docker composeand make usre they are enabled and started**
-``sudo apt install -y docker.io``
-``sudo apt install -y docker-compose``
-2 .**Build and Run the Docker Containers**
-``docker-compose up --build -d``
+1. **Install Docker and Docker Compose**:
+   - Install Docker and Docker Compose on your machine and ensure they are enabled and started:
+     ```bash
+     sudo apt install -y docker.io
+     sudo apt install -y docker-compose
+     ```
 
-## P.S
-i have included to my own .env file (even tho it is bad practice) but since it doesnt contain sensitive information , it should also make your testing experience better.
-make sure to check it and uncomment the variables for docker and comment the localhost variables,
-or vice versa.
+2. **Build and Run the Docker Containers**:
+   - Run the following command to build and run the containers:
+     ```bash
+     docker-compose up --build -d
+     ```
+
+---
+
+### Notes:
+- I have included my own `.env` file (even though it's not ideal, it doesn't contain sensitive information).
+- It should help make your testing experience better.
+- Make sure to check the `.env` file and uncomment the variables for Docker and comment out the localhost variables, or vice versa.
