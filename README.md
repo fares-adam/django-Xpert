@@ -63,7 +63,7 @@ EXIT;
 
 4. **Setting Up Redis and Celery**
 
-# To enable asynchronous task processing in your Django application, follow these steps to install and configure Redis and Celery:
+### To enable asynchronous task processing in your Django application, follow these steps to install and configure Redis and Celery:
 
 **For Ubuntu:**
 
@@ -76,7 +76,7 @@ EXIT;
 ``sudo systemctl start mysql
   redis-server
 ``
-###make sure to run the clery worker in a termial
+### make sure to run the clery worker in a termialalos
 ``celery -A base worker --loglevel=info
 ``
 
@@ -90,7 +90,7 @@ python manage.py create_default_users
 
 10. **Run the development server**
 python manage.py runserver
-# The API will be accessible at <http://127.0.0.1:8000/>
+### The API will be accessible at <http://127.0.0.1:8000/>
 # OR
 ### you can use the docker container
 
