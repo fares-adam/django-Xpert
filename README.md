@@ -51,19 +51,19 @@ source env/bin/activate # On Windows, use 'env\Scripts\activate'
 pip install -r requirements.txt
 4. **Set up the database**
 
-# Ensure MySQL is running and create a new database
+### Ensure MySQL is running and create a new database
 
 mysql -u root -p
 CREATE DATABASE tickets;
 EXIT;
 
-# Configure the database settings in tickets/settings.py if you changed the name
+### Configure the database settings in tickets/settings.py if you changed the name
 
-# Update the DATABASES setting with your MySQL credentials
+### Update the DATABASES setting with your MySQL credentials
 
 4. **Setting Up Redis and Celery**
 
-# To enable asynchronous task processing in your Django application, follow these steps to install and configure Redis and Celery:
+### To enable asynchronous task processing in your Django application, follow these steps to install and configure Redis and Celery:
 
 **For Ubuntu:**
 
@@ -76,7 +76,7 @@ EXIT;
 ``sudo systemctl start mysql
   redis-server
 ``
-###make sure to run the clery worker in a termial
+### make sure to run the clery worker in a termialalos
 ``celery -A base worker --loglevel=info
 ``
 
@@ -86,10 +86,21 @@ python manage.py migrate
 
 9. **Create a admin user.
 python manage.py create_default_users
-# Follow the prompts to set up the admin user
 
 10. **Run the development server**
 python manage.py runserver
-# The API will be accessible at <http://127.0.0.1:8000/>
+### The API will be accessible at <http://127.0.0.1:8000/>
+# OR
+### you can use the docker container
 
+1.install docker and docker composeand make usre they are enabled and started
+``sudo apt install -y docker.io
+sudo apt install -y docker-compose``
+2.Build and Run the Docker Containers
+``docker-compose up --build -d``
+
+## P.S
+i have included to my own .env file (even tho it is bad practice) but since it doesnt contain sensitive information , it should also make your testing experience better.
+make sure to check it and uncomment the variables for docker and comment the localhost variables,
+or vice versa.
 ```
