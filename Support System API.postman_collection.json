@@ -11,6 +11,23 @@
 			"item": [
 				{
 					"name": "Admin Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Set admin token\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    // Check if the response has access and refresh tokens",
+									"    pm.environment.set(\"admin_token\", jsonData.access || '');",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -21,7 +38,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"admin123\"\n}",
+							"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"admin\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -29,12 +46,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/api/token/",
+							"raw": "{{base_url}}/api/auth/token/",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"api",
+								"auth",
 								"token",
 								""
 							]
@@ -44,6 +62,23 @@
 				},
 				{
 					"name": "Agent Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Set agent token\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    // Check if the response has access and refresh tokens",
+									"     pm.environment.set(\"agent_token\", jsonData.access || '');",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -54,7 +89,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"agent1\",\n    \"password\": \"agent123\"\n}",
+							"raw": "{\n    \"username\": \"agent0\",\n    \"password\": \"agent\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -62,12 +97,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/api/token/",
+							"raw": "{{base_url}}/api/auth/token/",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"api",
+								"auth",
 								"token",
 								""
 							]
@@ -87,7 +123,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer {{admin_access}}"
+								"value": "Bearer {{admin_token}}"
 							},
 							{
 								"key": "Content-Type",
@@ -125,7 +161,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer {{admin_access}}"
+								"value": "Bearer {{admin_token}}"
 							},
 							{
 								"key": "Content-Type",
@@ -134,7 +170,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\": \"Critical Server Issue\",\n    \"description\": \"Production server completely down\"\n}",
+							"raw": "{\n    \"title\": \"Critical Server Issue\",\n    \"description\": \"updated description\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -142,11 +178,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/admin/tickets/1/",
+							"raw": "{{base_url}}/api/admin/tickets/1/",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
+								"api",
 								"admin",
 								"tickets",
 								"1",
@@ -163,18 +200,19 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer {{admin_access}}"
+								"value": "Bearer {{admin_token}}"
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/admin/tickets/1/",
+							"raw": "{{base_url}}/api/admin/tickets/51/",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
+								"api",
 								"admin",
 								"tickets",
-								"1",
+								"51",
 								""
 							]
 						}
@@ -193,7 +231,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer {{agent_access}}"
+								"value": "Bearer {{agent_token}}"
 							},
 							{
 								"key": "Content-Type",
@@ -227,7 +265,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"customer_id\": 3\n}",
+							"raw": "{\n    \"customer_id\": 1,\n    \"ticket_id\":1\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -235,16 +273,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/api/agent/tickets/1/sell/",
+							"raw": "{{base_url}}/api/agent/sell-ticket/",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"api",
 								"agent",
-								"tickets",
-								"1",
-								"sell",
+								"sell-ticket",
 								""
 							]
 						}
@@ -263,7 +299,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQzNTExNjM1LCJpYXQiOjE3NDM1MDgwMzUsImp0aSI6ImJiYjkyNzlhOGJmYzQyZjg4NTQ4YjEwM2UwNjQ1ZmVmIiwidXNlcl9pZCI6MX0.TLLRCbOBiXArOnqJ3l3CsCpuCBqasdz10m76VznUIWI\""
+								"value": "Bearer {{admin_token}}"
 							}
 						],
 						"body": {
@@ -302,17 +338,23 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"new_agent\",\n    \"email\": \"agent2@example.com\",\n    \"role\": \"agent\",\n    \"password\": \"agent123\"\n}"
+							"raw": "{\n    \"name\": \"John Doe\",\n    \"email\": \"johndoe@example.com\",\n    \"business_name\": \"John's Store\",\n    \"phone\":\"07775000\",\n    \"address\":\"123 street\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
-							"raw": "{{base_url}}/api/admin/users/",
+							"raw": "{{base_url}}/api/admin/customer/create/",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"api",
 								"admin",
-								"users",
+								"customer",
+								"create",
 								""
 							]
 						}
@@ -331,7 +373,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\":\"agnet\",\n    \"email\": \"updated@example.com\"\n}",
+							"raw": "{\n    \"username\":\"admin\",\n    \"password\":\"admin\",\n    \"email\": \"admin@admin.com\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -339,7 +381,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/api/admin/users/7/",
+							"raw": "{{base_url}}/api/admin/users/1/",
 							"host": [
 								"{{base_url}}"
 							],
@@ -347,7 +389,7 @@
 								"api",
 								"admin",
 								"users",
-								"7",
+								"1",
 								""
 							]
 						}
@@ -365,7 +407,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/api/admin/users/2/delete/",
+							"raw": "{{base_url}}/api/admin/users/7/",
 							"host": [
 								"{{base_url}}"
 							],
@@ -373,8 +415,7 @@
 								"api",
 								"admin",
 								"users",
-								"2",
-								"delete",
+								"7",
 								""
 							]
 						}
@@ -386,17 +427,27 @@
 	],
 	"event": [
 		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
 			"listen": "test",
 			"script": {
+				"type": "text/javascript",
 				"exec": [
 					"// Set access tokens after login",
 					"pm.test(\"Set admin token\", function () {",
 					"    var jsonData = pm.response.json();",
-					"    pm.collectionVariables.set(\"admin_access\", jsonData.access);",
-					"    pm.collectionVariables.set(\"admin_refresh\", jsonData.refresh);",
+					"    pm.collectionVariables.set(\"admin_token\", jsonData.access);",
+					"    pm.collectionVariables.set(\"agent_token\", jsonData.refresh);",
 					"});"
-				],
-				"type": "text/javascript"
+				]
 			}
 		}
 	],
@@ -406,15 +457,11 @@
 			"value": "http://localhost:8000"
 		},
 		{
-			"key": "admin_access",
+			"key": "admin_token",
 			"value": ""
 		},
 		{
-			"key": "agent_access",
-			"value": ""
-		},
-		{
-			"key": "admin_refresh",
+			"key": "agent_token",
 			"value": ""
 		}
 	]
